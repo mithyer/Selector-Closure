@@ -28,20 +28,18 @@ private var boxKey: UInt8 = 0
 extension Attachable {
     
     public func set(_ attachObj: Any?, forKey key: String) {
-        let sSelf = self
         if nil == attachObj {
             if let box = objc_getAssociatedObject(self, &boxKey) as? DicBox<String, Any> {
                 box.dic.removeValue(forKey: key)
             }
             return
         }
-        if let box = objc_getAssociatedObject(self, &boxKey) as? DicBox<String, Any> {
-            box.dic[key] = attachObj!
-        } else {
+        let box = objc_getAssociatedObject(self, &boxKey) as? DicBox<String, Any> ?? {
             let box = DicBox<String, Any>()
-            objc_setAssociatedObject(sSelf, &boxKey, box, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-            box.dic[key] = attachObj!
-        }
+            objc_setAssociatedObject(self, &boxKey, box, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            return box
+        }()
+        box.dic[key] = attachObj!
     }
     
     public func getAttach(forKey key: String) -> Any? {
