@@ -22,7 +22,7 @@ fileprivate class Target {
     }
 }
 
-fileprivate let targetKey = "targetKey"
+fileprivate var targetKey: UInt = 0
 
 extension UIBarButtonItem: Attachable {
 
@@ -30,28 +30,28 @@ extension UIBarButtonItem: Attachable {
         let target = Target(closure)
         self.init(image: image, style: style, target: target, action: #selector(Target.handler))
         target.item = self
-        self.set(target, forKey: targetKey)
+        self.set(target, forKey: &targetKey)
     }
     
     public convenience init(image: UIImage?, landscapeImagePhone: UIImage?, style: UIBarButtonItemStyle, _ closure:  @escaping (UIBarButtonItem?) -> Void) {
         let target = Target(closure)
         self.init(image: image, landscapeImagePhone: landscapeImagePhone, style: style, target: target, action: #selector(Target.handler))
         target.item = self
-        self.set(target, forKey: targetKey)
+        self.set(target, forKey: &targetKey)
     }
     
     public convenience init(title: String?, style: UIBarButtonItemStyle, _ closure: @escaping (UIBarButtonItem?) -> Void) {
         let target = Target(closure)
         self.init(title: title, style: style, target: target, action: #selector(Target.handler))
         target.item = self
-        self.set(target, forKey: targetKey)
+        self.set(target, forKey: &targetKey)
     }
     
     public convenience init(barButtonSystemItem systemItem: UIBarButtonSystemItem, _ closure: @escaping (UIBarButtonItem?) -> Void) {
         let target = Target(closure)
         self.init(barButtonSystemItem: systemItem, target: target, action: #selector(Target.handler))
         target.item = self
-        self.set(target, forKey: targetKey)
+        self.set(target, forKey: &targetKey)
     }
 
 }

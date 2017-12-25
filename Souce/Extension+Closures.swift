@@ -18,34 +18,18 @@ class ArrayBox<T> {
 
 public protocol Attachable {
     
-    func set(_ attachObj: Any?, forKey key: String)
-    func getAttach(forKey key: String) -> Any?
+    func set(_ attachObj: Any?, forKey key: inout UInt)
+    func getAttach(forKey key: inout UInt) -> Any?
     
 }
 
-private var boxKey: UInt8 = 0
-
 extension Attachable {
     
-    public func set(_ attachObj: Any?, forKey key: String) {
-        if nil == attachObj {
-            if let box = objc_getAssociatedObject(self, &boxKey) as? DicBox<String, Any> {
-                box.dic.removeValue(forKey: key)
-            }
-            return
-        }
-        let box = objc_getAssociatedObject(self, &boxKey) as? DicBox<String, Any> ?? {
-            let box = DicBox<String, Any>()
-            objc_setAssociatedObject(self, &boxKey, box, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-            return box
-        }()
-        box.dic[key] = attachObj!
+    public func set(_ attachObj: Any?, forKey key: inout UInt) {
+        objc_setAssociatedObject(self, &key, attachObj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
     }
     
-    public func getAttach(forKey key: String) -> Any? {
-        guard let box = objc_getAssociatedObject(self, &boxKey) as? DicBox<String, Any> else {
-            return nil
-        }
-        return box.dic[key]
+    public func getAttach(forKey key: inout UInt) -> Any? {
+        return objc_getAssociatedObject(self, &key)
     }
 }

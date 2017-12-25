@@ -24,17 +24,17 @@ fileprivate class Invoker {
 
 fileprivate typealias Dealer = DicBox<UInt, ArrayBox<Invoker>>
 
-fileprivate var dealerKey = "dealerKey"
+fileprivate var dealerKey: UInt = 0
 
 extension UIControl: Attachable {
 
     fileprivate func invokersForEvents(events: UIControlEvents, createIfNotExist: Bool = true) -> ArrayBox<Invoker>? {
-        let dealer: Dealer? = self.getAttach(forKey: dealerKey) as? Dealer ?? {
+        let dealer: Dealer? = self.getAttach(forKey: &dealerKey) as? Dealer ?? {
             if !createIfNotExist {
                 return nil
             }
             let dealer = Dealer()
-            self.set(dealer, forKey: dealerKey)
+            self.set(dealer, forKey: &dealerKey)
             return dealer
         }()
         if nil == dealer {

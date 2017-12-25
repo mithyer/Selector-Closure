@@ -8,18 +8,18 @@
 
 import UIKit
 
-fileprivate let closureKey = "closureKey"
+fileprivate var closureKey: UInt = 0
 
 extension UIGestureRecognizer: Attachable {
     
     public convenience init(_ closure: @escaping (UIGestureRecognizer) -> Void) {
         self.init()
         self.addTarget(self, action: #selector(handler))
-        self.set(closure, forKey: closureKey)
+        self.set(closure, forKey: &closureKey)
     }
     
     @objc func handler() {
-        (self.getAttach(forKey: closureKey) as? (UIGestureRecognizer) -> Void)?(self)
+        (self.getAttach(forKey: &closureKey) as? (UIGestureRecognizer) -> Void)?(self)
     }
     
 }
