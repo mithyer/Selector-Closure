@@ -8,12 +8,19 @@
 
 import Foundation
 
-class DicBox<K: Hashable, V> {
+class DicWrapper<K: Hashable, V> {
     var dic = [K: V]()
 }
 
-class ArrayBox<T> {
+class ArrayWrapper<T> {
     var array = [T]()
+}
+
+class ClosureWrapper<T> {
+    var closure: (T) -> Void
+    init(_ closure: @escaping (T) -> Void) {
+        self.closure = closure
+    }
 }
 
 public protocol Attachable {

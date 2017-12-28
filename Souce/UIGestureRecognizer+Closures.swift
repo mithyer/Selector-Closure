@@ -15,11 +15,11 @@ extension UIGestureRecognizer: Attachable {
     public convenience init(_ closure: @escaping (UIGestureRecognizer) -> Void) {
         self.init()
         self.addTarget(self, action: #selector(handler))
-        self.set(closure, forKey: &closureKey)
+        self.set(ClosureWrapper<UIGestureRecognizer>(closure), forKey: &closureKey)
     }
     
     @objc func handler() {
-        (self.getAttach(forKey: &closureKey) as? (UIGestureRecognizer) -> Void)?(self)
+        (self.getAttach(forKey: &closureKey) as? ClosureWrapper<UIGestureRecognizer>)?.closure(self)
     }
     
 }
