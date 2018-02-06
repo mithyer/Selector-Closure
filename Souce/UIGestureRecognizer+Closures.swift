@@ -12,10 +12,10 @@ fileprivate var closureKey: UInt = 0
 
 extension UIGestureRecognizer: Attachable {
     
-    public convenience init(_ closure: @escaping (UIGestureRecognizer) -> Void) {
+    public convenience init<T: UIGestureRecognizer>(_ closure: @escaping (T) -> Void) {
         self.init()
         self.addTarget(self, action: #selector(handler))
-        self.set(ClosureWrapper<UIGestureRecognizer>(closure), forKey: &closureKey)
+        self.set(ClosureWrapper<T>(closure), forKey: &closureKey)
     }
     
     @objc func handler() {

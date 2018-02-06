@@ -12,7 +12,7 @@
 		7176745A1FECF87400A72450 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 717674581FECF87400A72450 /* Main.storyboard */; };
 		7176745C1FECF87400A72450 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7176745B1FECF87400A72450 /* Assets.xcassets */; };
 		7176745F1FECF87400A72450 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7176745D1FECF87400A72450 /* LaunchScreen.storyboard */; };
-		7176746B1FECF8B600A72450 /* Extension+Closures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717674671FECF8B600A72450 /* Extension+Closures.swift */; };
+		7176746B1FECF8B600A72450 /* Closures+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717674671FECF8B600A72450 /* Closures+Extension.swift */; };
 		7176746C1FECF8B600A72450 /* UIBarButtonItem+Closures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717674681FECF8B600A72450 /* UIBarButtonItem+Closures.swift */; };
 		7176746D1FECF8B600A72450 /* UIControl+Closures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717674691FECF8B600A72450 /* UIControl+Closures.swift */; };
 		7176746E1FECF8B600A72450 /* UIGestureRecognizer+Closures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7176746A1FECF8B600A72450 /* UIGestureRecognizer+Closures.swift */; };
@@ -26,7 +26,7 @@
 		7176745B1FECF87400A72450 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7176745E1FECF87400A72450 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		717674601FECF87400A72450 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		717674671FECF8B600A72450 /* Extension+Closures.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extension+Closures.swift"; sourceTree = "<group>"; };
+		717674671FECF8B600A72450 /* Closures+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Closures+Extension.swift"; sourceTree = "<group>"; };
 		717674681FECF8B600A72450 /* UIBarButtonItem+Closures.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+Closures.swift"; sourceTree = "<group>"; };
 		717674691FECF8B600A72450 /* UIControl+Closures.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIControl+Closures.swift"; sourceTree = "<group>"; };
 		7176746A1FECF8B600A72450 /* UIGestureRecognizer+Closures.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIGestureRecognizer+Closures.swift"; sourceTree = "<group>"; };
@@ -76,7 +76,7 @@
 		717674661FECF8B600A72450 /* Souce */ = {
 			isa = PBXGroup;
 			children = (
-				717674671FECF8B600A72450 /* Extension+Closures.swift */,
+				717674671FECF8B600A72450 /* Closures+Extension.swift */,
 				717674681FECF8B600A72450 /* UIBarButtonItem+Closures.swift */,
 				717674691FECF8B600A72450 /* UIControl+Closures.swift */,
 				7176746A1FECF8B600A72450 /* UIGestureRecognizer+Closures.swift */,
@@ -162,7 +162,7 @@
 				7176746D1FECF8B600A72450 /* UIControl+Closures.swift in Sources */,
 				7176746E1FECF8B600A72450 /* UIGestureRecognizer+Closures.swift in Sources */,
 				7176746C1FECF8B600A72450 /* UIBarButtonItem+Closures.swift in Sources */,
-				7176746B1FECF8B600A72450 /* Extension+Closures.swift in Sources */,
+				7176746B1FECF8B600A72450 /* Closures+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

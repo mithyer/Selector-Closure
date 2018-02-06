@@ -8,10 +8,10 @@
 
 import UIKit
 
-fileprivate class Invoker: ClosureWrapper<UIControl?> {
-    weak var control: UIControl?
+fileprivate class Invoker: ClosureWrapper<UIControl> {
+    weak var control: UIControl!
     
-    convenience init(_ control: UIControl, _ closure: @escaping (UIControl?) -> Void) {
+    convenience init(_ control: UIControl, _ closure: @escaping (UIControl) -> Void) {
         self.init(closure)
         self.control = control
     }
@@ -21,38 +21,49 @@ fileprivate class Invoker: ClosureWrapper<UIControl?> {
     }
 }
 
-fileprivate typealias Dealer = DicWrapper<UInt, ArrayWrapper<Invoker>>
+fileprivate typealias InvokersDicWrapper = DicWrapper<UInt, ArrayWrapper<Invoker>>
 
-fileprivate var dealerKey: UInt = 0
+fileprivate var invokersDicWrapperKey: UInt = 0
 
 extension UIControl: Attachable {
 
     fileprivate func invokers(forEvents events: UIControlEvents, createIfNotExist: Bool = true) -> ArrayWrapper<Invoker>? {
-        let dealer: Dealer? = self.getAttach(forKey: &dealerKey) as? Dealer ?? {
+        let dicWrapper: InvokersDicWrapper? = self.getAttach(forKey: &invokersDicWrapperKey) as? InvokersDicWrapper ?? {
             if !createIfNotExist {
                 return nil
             }
-            let dealer = Dealer()
-            self.set(dealer, forKey: &dealerKey)
-            return dealer
+            let wrapper = InvokersDicWrapper()
+            self.set(wrapper, forKey: &invokersDicWrapperKey)
+            return wrapper
         }()
-        if nil == dealer {
+        if nil == dicWrapper {
             return nil
         }
-        let invokers: ArrayWrapper<Invoker>? = dealer!.dic[events.rawValue] ?? {
+        let invokers: ArrayWrapper<Invoker>? = dicWrapper!.dic[events.rawValue] ?? {
             if !createIfNotExist {
                 return nil
             }
             let invokers = ArrayWrapper<Invoker>()
-            dealer!.dic[events.rawValue] = invokers
+            dicWrapper!.dic[events.rawValue] = invokers
             return invokers
         }()
         return invokers
     }
     
-    public func add(_ events: UIControlEvents, _ closure: @escaping (UIControl?) -> Void) {
+    public func add<T: UIControl>(_ events: UIControlEvents? = nil, _ closure: @escaping (T) -> Void) {
+        assert(nil != (self as? T), "self must be kind of UIControl")
+        let events: UIControlEvents = events ?? {
+            switch self {
+            case is UIButton: return .touchUpInside
+            case is UISwitch: fallthrough
+            case is UISlider: return .valueChanged
+            default: return .allEvents
+            }
+        }()
         let box = invokers(forEvents: events)
-        let invoker = Invoker(self, closure)
+        let invoker = Invoker(self) { control in
+            closure(control as! T)
+        }
         box!.array.append(invoker)
         self.addTarget(invoker, action: #selector(Invoker.invoke), for: events)
     }

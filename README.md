@@ -5,7 +5,12 @@ a light way to make target-action to closure in Swift.UIKit with Swift4
 
 ```
 // add events
-control.add(.touchUpInside) { btn in
+control.add(.touchUpInside) { control in
+  // action
+}
+
+// or like this to convert type of control
+control.add(.touchUpInside) { (btn: UIButton) in
   // action
 }
 

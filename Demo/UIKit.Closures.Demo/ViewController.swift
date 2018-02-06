@@ -22,11 +22,9 @@ class RootViewController: UIViewController {
         btn.setTitle("btn", for: .normal)
         btn.backgroundColor = .red
         self.view.addSubview(btn)
-        btn.add(.touchUpInside) {
-            print($0!)
-        }
-        btn.add(.touchUpInside) {
-            print($0!)
+        btn.add() { (sender: UIButton) in
+            sender.setTitle("has tapped", for: .normal)
+            sender.sizeToFit()
         }
         
         
@@ -40,7 +38,7 @@ class RootViewController: UIViewController {
         
         // MARK: UIBarButtonItem
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "test", style: .plain, {
-            print($0!)
+            print($0)
         })
     }
     
