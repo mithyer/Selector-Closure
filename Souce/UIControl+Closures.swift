@@ -52,14 +52,17 @@ extension UIControl: Attachable {
     
     public func add<T: UIControl>(_ events: UIControlEvents? = nil, _ closure: @escaping (T) -> Void) {
         assert(nil != (self as? T), "self must be kind of T")
-        let events: UIControlEvents = events ?? {
+        let events: UIControlEvents! = events ?? {
             switch self {
             case is UIButton: return .touchUpInside
             case is UISwitch: fallthrough
             case is UISlider: return .valueChanged
-            default: return .allEvents
+            case is UITextField: return .editingChanged
+            default: return nil
             }
         }()
+        assert(nil != events, "no default events for T")
+        
         let box = invokers(forEvents: events)
         let invoker = Invoker(self) { control in
             closure(control as! T)

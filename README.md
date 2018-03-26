@@ -1,21 +1,25 @@
 # UIKit.Closures
-a light way to make target-action to closure in Swift.UIKit with Swift4
+A light way to make target-action to closure in Swift.UIKit with Swift4
 
 ## UIControl
 
 ```
 // add events
-control.add(.touchUpInside) { control in
+control.add(.touchUpInside) { sender in
   // action
 }
 
 // or like this to convert type of control
-control.add(.touchUpInside) { (btn: UIButton) in
+control.add(.touchUpInside) { (sender: UIButton) in
+  // action
+}
+// or use default event(UIButton, UISwitch, UISlider, UITextField has default events)
+control.add { (btn: UIButton) in
   // action
 }
 
 // remove events
-control.remove(.touchUpInside) { btn in
+control.remove(.touchUpInside) { sender in
   // action
 }
 
@@ -42,13 +46,21 @@ let item = UIBarButtonItem.init(title: "test", style: .plain, { item in
 ## UIGestureRecognizer
 
 ```
+// init a recognizer
 let r = UITapGestureRecognizer{ recognizer in
   // action
+}
+
+// fast make tap action
+let view = UIView()
+view.whenTapped { recognizer in
+  
 }
 
 ......
 
 ```
+
 
 
 code style is more like 
