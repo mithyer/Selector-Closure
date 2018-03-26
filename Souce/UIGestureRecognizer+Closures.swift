@@ -23,3 +23,14 @@ extension UIGestureRecognizer: Attachable {
     }
     
 }
+
+extension UIView {
+    
+    func whenTapped(_ enableUserInteraction: Bool = true, _ closure: @escaping (UITapGestureRecognizer) -> Void)  {
+        if enableUserInteraction {
+            self.isUserInteractionEnabled = true
+        }
+        self.addGestureRecognizer(UITapGestureRecognizer(closure))
+    }
+    
+}

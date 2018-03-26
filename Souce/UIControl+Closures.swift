@@ -51,7 +51,7 @@ extension UIControl: Attachable {
     }
     
     public func add<T: UIControl>(_ events: UIControlEvents? = nil, _ closure: @escaping (T) -> Void) {
-        assert(nil != (self as? T), "self must be kind of UIControl")
+        assert(nil != (self as? T), "self must be kind of T")
         let events: UIControlEvents = events ?? {
             switch self {
             case is UIButton: return .touchUpInside
