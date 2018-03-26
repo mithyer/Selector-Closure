@@ -22,7 +22,7 @@ class RootViewController: UIViewController {
         btn.setTitle("btn", for: .normal)
         btn.backgroundColor = .red
         self.view.addSubview(btn)
-        btn.add() { (sender: UIButton) in
+        btn.add { (sender: UIButton) in
             sender.setTitle("has tapped", for: .normal)
             sender.sizeToFit()
         }
@@ -30,16 +30,15 @@ class RootViewController: UIViewController {
         
         // MARK: UIGestureRecognizer
         
-        self.view.isUserInteractionEnabled = true
-        self.view.addGestureRecognizer(UITapGestureRecognizer {
+        self.view.whenTapped {
             print($0)
-        })
+        }
         
         
         // MARK: UIBarButtonItem
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "test", style: .plain, {
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "test", style: .plain) {
             print($0)
-        })
+        }
     }
     
 }

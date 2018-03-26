@@ -16,18 +16,25 @@ class ArrayWrapper<T> {
     var array = [T]()
 }
 
-class ClosureWrapper<T> {
-    var closure: (T) -> Void
-    init(_ closure: @escaping (T) -> Void) {
+public class Invoker<T: NSObject> {
+    weak var sender: T!
+    
+    public var closure: (T) -> Void
+    public var action: Selector {
+        return #selector(invoke)
+    }
+    public init(_ sender: T, _ closure: @escaping (T) -> Void) {
+        self.sender = sender
         self.closure = closure
+    }
+    @objc func invoke() {
+        self.closure(sender)
     }
 }
 
 public protocol Attachable {
-    
     func set(_ attachObj: Any?, forKey key: inout UInt)
     func getAttach(forKey key: inout UInt) -> Any?
-    
 }
 
 extension Attachable {

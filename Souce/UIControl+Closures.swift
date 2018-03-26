@@ -8,26 +8,12 @@
 
 import UIKit
 
-fileprivate class Invoker: ClosureWrapper<UIControl> {
-    weak var control: UIControl!
-    
-    convenience init(_ control: UIControl, _ closure: @escaping (UIControl) -> Void) {
-        self.init(closure)
-        self.control = control
-    }
-    
-    @objc func invoke() {
-        closure(control)
-    }
-}
-
-fileprivate typealias InvokersDicWrapper = DicWrapper<UInt, ArrayWrapper<Invoker>>
-
+fileprivate typealias InvokersDicWrapper = DicWrapper<UInt, ArrayWrapper<Invoker<UIControl>>>
 fileprivate var invokersDicWrapperKey: UInt = 0
 
 extension UIControl: Attachable {
 
-    fileprivate func invokers(forEvents events: UIControlEvents, createIfNotExist: Bool = true) -> ArrayWrapper<Invoker>? {
+    fileprivate func invokers(forEvents events: UIControlEvents, createIfNotExist: Bool = true) -> ArrayWrapper<Invoker<UIControl>>? {
         let dicWrapper: InvokersDicWrapper? = self.getAttach(forKey: &invokersDicWrapperKey) as? InvokersDicWrapper ?? {
             if !createIfNotExist {
                 return nil
@@ -39,11 +25,11 @@ extension UIControl: Attachable {
         if nil == dicWrapper {
             return nil
         }
-        let invokers: ArrayWrapper<Invoker>? = dicWrapper!.dic[events.rawValue] ?? {
+        let invokers: ArrayWrapper<Invoker<UIControl>>? = dicWrapper!.dic[events.rawValue] ?? {
             if !createIfNotExist {
                 return nil
             }
-            let invokers = ArrayWrapper<Invoker>()
+            let invokers = ArrayWrapper<Invoker<UIControl>>()
             dicWrapper!.dic[events.rawValue] = invokers
             return invokers
         }()
@@ -64,8 +50,8 @@ extension UIControl: Attachable {
         assert(nil != events, "no default events for T")
         
         let box = invokers(forEvents: events)
-        let invoker = Invoker(self) { control in
-            closure(control as! T)
+        let invoker = Invoker<UIControl>(self) { sender in
+            closure(sender as! T)
         }
         box!.array.append(invoker)
         self.addTarget(invoker, action: #selector(Invoker.invoke), for: events)
