@@ -14,9 +14,7 @@ extension UIGestureRecognizer: Attachable {
     
     public convenience init<T: UIGestureRecognizer>(_ closure: @escaping (T) -> Void) {
         self.init()
-        let invoker = Invoker<UIGestureRecognizer>(self) { sender in
-            closure(sender as! T)
-        }
+        let invoker = Invoker(self as! T, closure)
         self.set(invoker, forKey: &invokerKey)
         self.addTarget(invoker, action: invoker.action)
     }
@@ -24,11 +22,13 @@ extension UIGestureRecognizer: Attachable {
 
 extension UIView {
     
-    func whenTapped(_ enableUserInteraction: Bool = true, _ closure: @escaping (UITapGestureRecognizer) -> Void)  {
+    public func whenTapped(_ enableUserInteraction: Bool = true, _ closure: @escaping (UITapGestureRecognizer) -> Void) -> UITapGestureRecognizer  {
         if enableUserInteraction {
             self.isUserInteractionEnabled = true
         }
-        self.addGestureRecognizer(UITapGestureRecognizer(closure))
+        let recg = UITapGestureRecognizer(closure)
+        self.addGestureRecognizer(recg)
+        return recg
     }
     
 }

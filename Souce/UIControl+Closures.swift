@@ -8,35 +8,43 @@
 
 import UIKit
 
-fileprivate typealias InvokersDicWrapper = DicWrapper<UInt, ArrayWrapper<Invoker<UIControl>>>
+
+extension UIControlEvents: Hashable {
+    public var hashValue: Int {
+        return self.rawValue.hashValue
+    }
+}
+
+typealias InvokersDicWrapper<T: UIControl> = DicWrapper<UIControlEvents, ArrayWrapper<Invoker<T>>>
+
 fileprivate var invokersDicWrapperKey: UInt = 0
 
 extension UIControl: Attachable {
 
-    fileprivate func invokers(forEvents events: UIControlEvents, createIfNotExist: Bool = true) -> ArrayWrapper<Invoker<UIControl>>? {
-        let dicWrapper: InvokersDicWrapper? = self.getAttach(forKey: &invokersDicWrapperKey) as? InvokersDicWrapper ?? {
+    fileprivate func invokers<T: UIControl>(forEvents events: UIControlEvents, createIfNotExist: Bool = true) -> ArrayWrapper<Invoker<T>>? {
+        let dicWrapper: InvokersDicWrapper<T>? = self.getAttach(forKey: &invokersDicWrapperKey) as? InvokersDicWrapper<T> ?? {
             if !createIfNotExist {
                 return nil
             }
-            let wrapper = InvokersDicWrapper()
+            let wrapper = InvokersDicWrapper<T>()
             self.set(wrapper, forKey: &invokersDicWrapperKey)
             return wrapper
         }()
         if nil == dicWrapper {
             return nil
         }
-        let invokers: ArrayWrapper<Invoker<UIControl>>? = dicWrapper!.dic[events.rawValue] ?? {
+        let invokers: ArrayWrapper<Invoker<T>>? = dicWrapper!.dic[events] ?? {
             if !createIfNotExist {
                 return nil
             }
-            let invokers = ArrayWrapper<Invoker<UIControl>>()
-            dicWrapper!.dic[events.rawValue] = invokers
+            let invokers = ArrayWrapper<Invoker<T>>()
+            dicWrapper!.dic[events] = invokers
             return invokers
         }()
         return invokers
     }
     
-    public func add<T: UIControl>(_ events: UIControlEvents? = nil, _ closure: @escaping (T) -> Void) {
+    public func add<T: UIControl>(_ events: UIControlEvents? = nil, _ closure: @escaping (T) -> Void) -> Invoker<T> {
         assert(nil != (self as? T), "self must be kind of T")
         let events: UIControlEvents! = events ?? {
             switch self {
@@ -49,28 +57,43 @@ extension UIControl: Attachable {
         }()
         assert(nil != events, "no default events for T")
         
-        let box = invokers(forEvents: events)
-        let invoker = Invoker<UIControl>(self) { sender in
-            closure(sender as! T)
-        }
-        box!.array.append(invoker)
-        self.addTarget(invoker, action: #selector(Invoker.invoke), for: events)
+        let wrapper: ArrayWrapper<Invoker<T>> = invokers(forEvents: events)!
+        let invoker = Invoker(self as! T, closure)
+        invoker.events = events
+        wrapper.array.append(invoker)
+        self.addTarget(invoker, action: invoker.action, for: events)
+        return invoker
     }
 
-    public func remove(_ events: UIControlEvents) {
-        guard let box = invokers(forEvents: events, createIfNotExist: false) else {
+    public func remove<T: UIControl>(_ invoker: Invoker<T>) {
+        guard let dicWrapper = self.getAttach(forKey: &invokersDicWrapperKey) as? InvokersDicWrapper,
+            let events = invoker.events,
+            let arrayWrapper = dicWrapper.dic[events] else {
             return
         }
-        for invoker in box.array {
-            self.removeTarget(invoker, action: #selector(Invoker.invoke), for: events)
+        for (idx, ivk) in arrayWrapper.array.enumerated() {
+            if ivk === invoker {
+                self.removeTarget(invoker, action: invoker.action, for: events)
+                arrayWrapper.array.remove(at: idx)
+                break
+            }
         }
-        box.array.removeAll()
+    }
+    
+    public func removeAll(for events: UIControlEvents) {
+        guard let wrapper = invokers(forEvents: events, createIfNotExist: false) else {
+            return
+        }
+        for invoker in wrapper.array {
+            self.removeTarget(invoker, action: invoker.action, for: events)
+        }
+        wrapper.array.removeAll()
     }
     
     public func didAdd(_ events: UIControlEvents) -> Bool {
-        guard let box = invokers(forEvents: events, createIfNotExist: false) else {
+        guard let wrapper = invokers(forEvents: events, createIfNotExist: false) else {
             return false
         }
-        return box.array.count > 0
+        return wrapper.array.count > 0
     }
 }

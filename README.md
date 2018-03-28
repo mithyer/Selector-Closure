@@ -1,5 +1,5 @@
 # UIKit.Closures
-A light way to make target-action to closure in Swift.UIKit with Swift4
+A light way to make target-action as closure in Swift.UIKit with Swift4
 
 ## UIControl
 
@@ -14,12 +14,14 @@ control.add(.touchUpInside) { (sender: UIButton) in
   // action
 }
 // or use default event(UIButton, UISwitch, UISlider, UITextField has default events)
-control.add { (btn: UIButton) in
+let invoker = control.add { (btn: UIButton) in
   // action
 }
+// now you can remove specific closure with invoker returned
+control.remove(invoker)
 
-// remove events
-control.remove(.touchUpInside) { sender in
+// remove all for events
+control.removeAll(.touchUpInside) { sender in
   // action
 }
 
@@ -53,7 +55,7 @@ let r = UITapGestureRecognizer{ recognizer in
 
 // fast make tap action
 let view = UIView()
-view.whenTapped { recognizer in
+let r: UITapGestureRecognizer = view.whenTapped { recognizer in
   
 }
 
@@ -63,7 +65,7 @@ view.whenTapped { recognizer in
 
 
 
-code style is more like 
+code style is more similar to 
 
 [BlocksKit](https://github.com/BlocksKit/BlocksKit) 
 

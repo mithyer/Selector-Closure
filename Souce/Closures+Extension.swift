@@ -19,7 +19,8 @@ class ArrayWrapper<T> {
 public class Invoker<T: NSObject> {
     weak var sender: T!
     
-    public var closure: (T) -> Void
+    var events: UIControlEvents?
+    var closure: (T) -> Void
     public var action: Selector {
         return #selector(invoke)
     }
