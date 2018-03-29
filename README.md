@@ -1,33 +1,35 @@
-# UIKit.Closures
-A light way to make target-action as closure in Swift.UIKit with Swift4
+# Selector-Closure
+A light way to convert objc target-action selector to closure style by Swift3/4
+
 
 ## UIControl
 
 ```
 // add events
 control.add(.touchUpInside) { sender in
-  // action
+  // ...
 }
 
 // or like this to convert type of control
 control.add(.touchUpInside) { (sender: UIButton) in
-  // action
+  // ...
 }
+
 // or use default event(UIButton, UISwitch, UISlider, UITextField has default events)
 let invoker = control.add { (btn: UIButton) in
-  // action
+  // ...
 }
+
 // now you can remove specific closure with invoker returned
 control.remove(invoker)
 
 // remove all for events
 control.removeAll(.touchUpInside) { sender in
-  // action
+  // ...
 }
 
 // test didAdd events
 let res: Bool = control.didAdd(.touchUpInside)
-
 ```
 
 
@@ -35,14 +37,10 @@ let res: Bool = control.didAdd(.touchUpInside)
 
 ```
 let item = UIBarButtonItem.init(title: "test", style: .plain, { item in
-   // action
+  // ...
 })
 
-...
-
-...
-
-...
+// ...
 ```
 
 ## UIGestureRecognizer
@@ -50,25 +48,23 @@ let item = UIBarButtonItem.init(title: "test", style: .plain, { item in
 ```
 // init a recognizer
 let r = UITapGestureRecognizer{ recognizer in
-  // action
+  // ...
 }
 
 // fast make tap action
 let view = UIView()
 let r: UITapGestureRecognizer = view.whenTapped { recognizer in
-  
+    // ...
 }
-
-......
-
 ```
 
 
+## Convert your own
 
-code style is more similar to 
-
-[BlocksKit](https://github.com/BlocksKit/BlocksKit) 
-
-than 
-
-[Closures](https://github.com/vhesener/Closures)
+```
+// you have an instance named obj
+let invoker = Invoker(obj) { obj in
+  // ...
+}
+let act = invoker.action // convert done, now pass invoker to target, act to action
+```

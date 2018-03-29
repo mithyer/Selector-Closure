@@ -6,7 +6,7 @@
 //  Copyright © 2017年 ray. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 class DicWrapper<K: Hashable, V> {
     var dic = [K: V]()

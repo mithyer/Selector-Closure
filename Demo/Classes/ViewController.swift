@@ -22,7 +22,7 @@ class RootViewController: UIViewController {
         btn.setTitle("btn", for: .normal)
         btn.backgroundColor = .red
         self.view.addSubview(btn)
-        btn.add { (sender: UIButton) in
+        _ = btn.add { (sender: UIButton) in
             sender.setTitle("has tapped", for: .normal)
             sender.sizeToFit()
         }
@@ -30,7 +30,7 @@ class RootViewController: UIViewController {
         
         // MARK: UIGestureRecognizer
         
-        self.view.whenTapped {
+        _ = self.view.whenTapped {
             print($0)
         }
         
