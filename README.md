@@ -1,42 +1,46 @@
 # Selector-Closure
+
 A light way to convert objc target-action selector to closure style by Swift3/4
+
+# Version 1.x.x
+
+Now type of UIControl can be auto recognized.
+Use "sce" prefix to use all function.
 
 
 ## UIControl
 
 ```
-// add events
-control.add(.touchUpInside) { sender in
-  // ...
+let btn = UIButton()
+let field = UITextField()
+
+// for specific event 
+_ = btn.sce.add(.touchUpInside) { sender in
+  // ... sender is UIButton
 }
 
-// or like this to convert type of control
-control.add(.touchUpInside) { (sender: UIButton) in
-  // ...
+// for default event(UIButton, UISwitch, UISlider, UITextField has default events)
+let invoker = field.sce.add { sender in
+  // ... sender is UITextField
 }
 
-// or use default event(UIButton, UISwitch, UISlider, UITextField has default events)
-let invoker = control.add { (btn: UIButton) in
-  // ...
-}
-
-// now you can remove specific closure with invoker returned
-control.remove(invoker)
+// now you can remove action with invoker returned
+field.sce.remove(invoker)
 
 // remove all for events
-control.removeAll(.touchUpInside) { sender in
+field.sce.removeAll(.touchUpInside) { sender in
   // ...
 }
 
 // test didAdd events
-let res: Bool = control.didAdd(.touchUpInside)
+let res: Bool = field.sce.didAdd(.touchUpInside)
 ```
 
 
 ## UIBarButtonItem
 
 ```
-let item = UIBarButtonItem.init(title: "test", style: .plain, { item in
+let item = UIBarButtonItem.sce_init(title: "test", style: .plain, { item in
   // ...
 })
 
@@ -47,13 +51,13 @@ let item = UIBarButtonItem.init(title: "test", style: .plain, { item in
 
 ```
 // init a recognizer
-let r = UITapGestureRecognizer{ recognizer in
+let r = UITapGestureRecognizer.sce_init { recognizer in
   // ...
 }
 
 // fast make tap action
 let view = UIView()
-let r: UITapGestureRecognizer = view.whenTapped { recognizer in
+let tapGestureRecognizer = view.sce.whenTapped { recognizer in
     // ...
 }
 ```

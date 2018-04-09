@@ -22,21 +22,31 @@ class RootViewController: UIViewController {
         btn.setTitle("btn", for: .normal)
         btn.backgroundColor = .red
         self.view.addSubview(btn)
-        _ = btn.add { (sender: UIButton) in
-            sender.setTitle("has tapped", for: .normal)
-            sender.sizeToFit()
+        _ = btn.sce.add {
+            $0.setTitle("has tapped", for: .normal)
+            $0.sizeToFit()
         }
         
+        // MARK: UITextField
+        
+        let field = UITextField.init(frame: CGRect.init(x: 0, y: 50, width: 30, height: 30))
+        field.backgroundColor = .yellow
+        self.view.addSubview(field)
+        _ = field.sce.add { field in
+            if let text = field.text {
+                print(text)
+            }
+        }
         
         // MARK: UIGestureRecognizer
         
-        _ = self.view.whenTapped {
+        _ = self.view.sce.whenTapped {
             print($0)
         }
         
         
         // MARK: UIBarButtonItem
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "test", style: .plain) {
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem.sce_init(title: "test", style: .plain) {
             print($0)
         }
     }
