@@ -18,7 +18,7 @@ class ArrayWrapper<T> {
     var array = [T]()
 }
 
-public class Invoker<T: NSObject> {
+public class Invoker<T: AnyObject> {
     
     weak var sender: T!
     
@@ -40,9 +40,17 @@ public class Invoker<T: NSObject> {
     }
 }
 
-public class SCE<Element: NSObject> {
+public class SCE<Element> {
     
-    public weak var object: Element?
+    weak var _object: AnyObject?
+    public var object: Element? {
+        set {
+            _object = newValue as AnyObject
+        }
+        get {
+            return _object as? Element
+        }
+    }
 
     init(_ object: Element) {
         self.object = object
@@ -59,14 +67,14 @@ public class SCE<Element: NSObject> {
 
 public protocol AddSCE {
     
-    associatedtype T: NSObject
+    associatedtype T: AnyObject
     
     var sce: SCE<T> { get }
 }
 
 fileprivate var sceKey = 0
 
-extension AddSCE where Self: NSObject {
+extension AddSCE where Self: AnyObject {
     
     public var sce: SCE<Self> {
         return objc_getAssociatedObject(self, &sceKey) as? SCE ?? {

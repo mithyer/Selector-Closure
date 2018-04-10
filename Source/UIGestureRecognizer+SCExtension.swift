@@ -10,11 +10,17 @@ import UIKit
 
 fileprivate var invokerKey = 0
 
-extension UIGestureRecognizer: AddSCE {}
 
-extension UIGestureRecognizer {
+extension UIGestureRecognizer: AddSCE {
+
+    static let sce = SCE(UIGestureRecognizer.self)
     
-    public static func sce_init<T: UIGestureRecognizer>(_ closure: @escaping (T) -> Void) -> T {
+}
+
+extension SCE where Element == UIGestureRecognizer.Type {
+    
+    
+    public func initialize<T: UIGestureRecognizer>(_ closure: @escaping (T) -> Void) -> T {
         let recg = T.init()
         let invoker = Invoker(recg, closure)
         recg.sce.set(invoker, forKey: &invokerKey)
@@ -30,8 +36,10 @@ extension SCE where Element: UIView {
         if enableUserInteraction {
             view.isUserInteractionEnabled = true
         }
-        let recg = UITapGestureRecognizer.sce_init(closure)
+        let recg = UITapGestureRecognizer.sce.initialize(closure)
         view.addGestureRecognizer(recg)
         return recg
     }
 }
+
+

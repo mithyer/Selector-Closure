@@ -40,7 +40,7 @@ let res: Bool = field.sce.didAdd(.touchUpInside)
 ## UIBarButtonItem
 
 ```
-let item = UIBarButtonItem.sce_init(title: "test", style: .plain, { item in
+let item = UIBarButtonItem.sce.initialize(title: "test", style: .plain, { item in
   // ...
 })
 
@@ -50,8 +50,10 @@ let item = UIBarButtonItem.sce_init(title: "test", style: .plain, { item in
 ## UIGestureRecognizer
 
 ```
-// init a recognizer
-let r = UITapGestureRecognizer.sce_init { recognizer in
+// init a recognizer, 
+// notice: GestureRecognizer need assign type
+
+let r: UITapGestureRecognizer = UITapGestureRecognizer.sce.initialize { recognizer in
   // ...
 }
 

@@ -47,7 +47,7 @@
 			isa = PBXGroup;
 			children = (
 				71C5A63F2074AFEF006C4A69 /* Source */,
-				717674531FECF87400A72450 /* Classes */,
+				717674531FECF87400A72450 /* Support */,
 				717674521FECF87400A72450 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -60,7 +60,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		717674531FECF87400A72450 /* Classes */ = {
+		717674531FECF87400A72450 /* Support */ = {
 			isa = PBXGroup;
 			children = (
 				717674541FECF87400A72450 /* AppDelegate.swift */,
@@ -70,7 +70,7 @@
 				7176745D1FECF87400A72450 /* LaunchScreen.storyboard */,
 				717674601FECF87400A72450 /* Info.plist */,
 			);
-			path = Classes;
+			path = Support;
 			sourceTree = "<group>";
 		};
 		71C5A63F2074AFEF006C4A69 /* Source */ = {
@@ -306,7 +306,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5TW2U68DN6;
-				INFOPLIST_FILE = Classes/Info.plist;
+				INFOPLIST_FILE = Support/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ray.selector-closure";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -322,7 +322,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5TW2U68DN6;
-				INFOPLIST_FILE = Classes/Info.plist;
+				INFOPLIST_FILE = Support/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ray.selector-closure";
 				PRODUCT_NAME = "$(TARGET_NAME)";

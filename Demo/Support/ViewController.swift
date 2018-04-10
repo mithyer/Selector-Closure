@@ -46,9 +46,13 @@ class RootViewController: UIViewController {
         
         
         // MARK: UIBarButtonItem
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem.sce_init(title: "test", style: .plain) {
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem.sce.initialize(title: "test", style: .plain) {
             print($0)
         }
+        
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem.sce.initialize(title: "left", style: .plain, { item in
+            print(item)
+        })
     }
     
 }
