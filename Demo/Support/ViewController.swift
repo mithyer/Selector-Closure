@@ -29,7 +29,7 @@ class RootViewController: UIViewController {
         
         // MARK: UITextField
         
-        let field = UITextField.init(frame: CGRect.init(x: 0, y: 50, width: 30, height: 30))
+        let field = UITextField.init(frame: CGRect.init(x: 0, y: 50, width: 100, height: 30))
         field.backgroundColor = .yellow
         self.view.addSubview(field)
         _ = field.sce.add { field in
@@ -37,22 +37,27 @@ class RootViewController: UIViewController {
                 print(text)
             }
         }
-        
-        // MARK: UIGestureRecognizer
-        
-        _ = self.view.sce.whenTapped {
-            print($0)
-        }
-        
-        
+                
         // MARK: UIBarButtonItem
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem.sce.initialize(title: "test", style: .plain) {
-            print($0)
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem.SCE.initialize(title: "test", style: .plain) {
+            print("rightBarButtonItem--->\($0)")
         }
         
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem.sce.initialize(title: "left", style: .plain, { item in
-            print(item)
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem.SCE.initialize(title: "left", style: .plain, { item in
+            print("leftBarButtonItem--->\(item)")
         })
+        
+        // MARK: GestureRecognizer
+        
+        let view = UIView.init(frame: CGRect.init(x: 0, y: 100, width: 50, height: 50))
+        view.backgroundColor = .green
+        view.isUserInteractionEnabled = true
+        self.view.addSubview(view)
+        let tgr = UITapGestureRecognizer.SCE.initialize {
+            print("tap--->\($0)")
+        }
+        view.addGestureRecognizer(tgr)
     }
     
 }

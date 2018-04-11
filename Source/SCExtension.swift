@@ -8,15 +8,6 @@
 
 import UIKit
 
-class DicWrapper<K: Hashable, V> {
-    
-    var dic = [K: V]()
-}
-
-class ArrayWrapper<T> {
-    
-    var array = [T]()
-}
 
 public class Invoker<T: AnyObject> {
     
@@ -40,50 +31,45 @@ public class Invoker<T: AnyObject> {
     }
 }
 
-public class SCE<Element> {
+public class SCECls<T: AnyObject> {
     
-    weak var _object: AnyObject?
-    public var object: Element? {
-        set {
-            _object = newValue as AnyObject
-        }
-        get {
-            return _object as? Element
-        }
-    }
-
-    init(_ object: Element) {
+    weak public var object: T?
+    
+    init(_ object: T) {
         self.object = object
     }
-
+    
     func set(_ attachObj: Any?, forKey key: inout Int) {
         objc_setAssociatedObject(self, &key, attachObj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
     }
-
-    func getAttach<T>(forKey key: inout Int) -> T? {
-        return objc_getAssociatedObject(self, &key) as? T
+    
+    func getAttach<K>(forKey key: inout Int) -> K? {
+        return objc_getAssociatedObject(self, &key) as? K
     }
 }
 
-public protocol AddSCE {
+public protocol SCExtension {
     
-    associatedtype T: AnyObject
-    
-    var sce: SCE<T> { get }
+    associatedtype T
+
+    static var SCE: SCECls<T>.Type { get }
+    var sce: SCECls<T> { get }
 }
 
 fileprivate var sceKey = 0
 
-extension AddSCE where Self: AnyObject {
+extension SCExtension where Self: AnyObject {
     
-    public var sce: SCE<Self> {
-        return objc_getAssociatedObject(self, &sceKey) as? SCE ?? {
-            let sce = SCE<Self>(self)
+    public static var SCE: SCECls<Self>.Type {
+        return SCECls<Self>.self
+    }
+    
+    public var sce: SCECls<Self> {
+        return objc_getAssociatedObject(self, &sceKey) as? SCECls ?? {
+            let sce = SCECls<Self>(self)
             objc_setAssociatedObject(self, &sceKey, sce, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             return sce
         }()
     }
 }
-
-extension UIView: AddSCE {}
 

@@ -15,13 +15,25 @@ extension UIControlEvents: Hashable {
     }
 }
 
+class DicWrapper<K: Hashable, V> {
+    
+    var dic = [K: V]()
+}
+
+class ArrayWrapper<T> {
+    
+    var array = [T]()
+}
+
 fileprivate typealias InvokersDicWrapper<T: UIControl> = DicWrapper<UIControlEvents, ArrayWrapper<Invoker<T>>>
 
 fileprivate var invokersDicWrapperKey = 0
 
-extension SCE where Element: UIControl {
+extension UIControl: SCExtension {}
+
+extension SCECls where T: UIControl {
     
-    func invokers<T: UIControl>(forEvents events: UIControlEvents, createIfNotExist: Bool = true) -> ArrayWrapper<Invoker<T>>? {
+    func invokers(forEvents events: UIControlEvents, createIfNotExist: Bool = true) -> ArrayWrapper<Invoker<T>>? {
         let dicWrapper: InvokersDicWrapper<T>? = self.getAttach(forKey: &invokersDicWrapperKey) ?? {
             if !createIfNotExist {
                 return nil
@@ -29,7 +41,7 @@ extension SCE where Element: UIControl {
             let wrapper = InvokersDicWrapper<T>()
             self.set(wrapper, forKey: &invokersDicWrapperKey)
             return wrapper
-            }()
+        }()
         if nil == dicWrapper {
             return nil
         }
@@ -40,24 +52,24 @@ extension SCE where Element: UIControl {
             let invokers = ArrayWrapper<Invoker<T>>()
             dicWrapper!.dic[events] = invokers
             return invokers
-            }()
+        }()
         return invokers
     }
     
-    public func add(_ events: UIControlEvents? = nil, _ closure: @escaping (Element) -> Void) -> Invoker<Element> {
+    public func add(_ events: UIControlEvents? = nil, _ closure: @escaping (T) -> Void) -> Invoker<T> {
         let control = self.object!
         let events: UIControlEvents! = events ?? {
-                switch control {
-                    case is UIButton: return .touchUpInside
-                    case is UISwitch: fallthrough
-                    case is UISlider: return .valueChanged
-                    case is UITextField: return .editingChanged
-                    default: return nil
-                }
-            }()
+            switch control {
+                case is UIButton: return .touchUpInside
+                case is UISwitch: fallthrough
+                case is UISlider: return .valueChanged
+                case is UITextField: return .editingChanged
+                default: return nil
+            }
+        }()
         assert(nil != events, "no default events for T")
         
-        let wrapper: ArrayWrapper<Invoker<Element>> = invokers(forEvents: events)!
+        let wrapper: ArrayWrapper<Invoker<T>> = invokers(forEvents: events)!
         let invoker = Invoker(control, closure)
         invoker.events = events
         wrapper.array.append(invoker)
@@ -65,7 +77,7 @@ extension SCE where Element: UIControl {
         return invoker
     }
     
-    public func remove(_ invoker: Invoker<Element>) {
+    public func remove(_ invoker: Invoker<T>) {
         let control = self.object!
         guard let dicWrapper: InvokersDicWrapper? = self.getAttach(forKey: &invokersDicWrapperKey),
             let events = invoker.events,
