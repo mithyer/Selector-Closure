@@ -26,6 +26,9 @@ class RootViewController: UIViewController {
             $0.setTitle("has tapped", for: .normal)
             $0.sizeToFit()
         }
+        _ = btn.sce.add { sender in
+            print("another one")
+        }
         
         // MARK: UITextField
         

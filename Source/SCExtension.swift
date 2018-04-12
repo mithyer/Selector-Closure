@@ -11,7 +11,7 @@ import UIKit
 
 public class Invoker<T: AnyObject> {
     
-    weak var sender: T!
+    weak var sender: T?
     
     var events: UIControlEvents?
     
@@ -27,7 +27,9 @@ public class Invoker<T: AnyObject> {
     }
     
     @objc func invoke() {
-        self.closure(sender)
+        if let sender = self.sender {
+            self.closure(sender)
+        }
     }
 }
 
@@ -39,11 +41,11 @@ public class SCECls<T: AnyObject> {
         self.object = object
     }
     
-    func set(_ attachObj: Any?, forKey key: inout Int) {
+    func set(_ attachObj: Any?, forKey key: inout Void?) {
         objc_setAssociatedObject(self, &key, attachObj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
     }
     
-    func getAttach<K>(forKey key: inout Int) -> K? {
+    func getAttach<K>(forKey key: inout Void?) -> K? {
         return objc_getAssociatedObject(self, &key) as? K
     }
 }
@@ -56,7 +58,7 @@ public protocol SCExtension {
     var sce: SCECls<T> { get }
 }
 
-fileprivate var sceKey = 0
+fileprivate var sceKey: Void?
 
 extension SCExtension where Self: AnyObject {
     

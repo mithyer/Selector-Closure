@@ -8,7 +8,7 @@
 
 import UIKit
 
-fileprivate var invokerKey = 0
+fileprivate var invokerKey: Void?
 
 extension UIBarButtonItem: SCExtension {
     

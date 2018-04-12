@@ -27,7 +27,7 @@ class ArrayWrapper<T> {
 
 fileprivate typealias InvokersDicWrapper<T: UIControl> = DicWrapper<UIControlEvents, ArrayWrapper<Invoker<T>>>
 
-fileprivate var invokersDicWrapperKey = 0
+fileprivate var invokersDicWrapperKey: Void?
 
 extension UIControl: SCExtension {}
 
