@@ -26,9 +26,10 @@ class RootViewController: UIViewController {
             $0.setTitle("has tapped", for: .normal)
             $0.sizeToFit()
         }
-        _ = btn.sce.add { sender in
+        let invoker = btn.sce.add { sender in
             print("another one")
         }
+        btn.sce.remove(invoker) // "another one" never print
         
         // MARK: UITextField
         
@@ -61,6 +62,12 @@ class RootViewController: UIViewController {
             print("tap--->\($0)")
         }
         view.addGestureRecognizer(tgr)
+        
+        // MARK: WhenTapped
+        _ = self.view.sce.whenTapped { (tgr) in
+            print(tgr)
+        }
+    
     }
     
 }

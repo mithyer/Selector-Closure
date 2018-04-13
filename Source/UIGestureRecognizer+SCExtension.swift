@@ -23,17 +23,4 @@ extension SCECls where T: UIGestureRecognizer {
     }
 }
 
-extension SCECls where T: UIView {
-    
-    public func whenTapped(_ enableUserInteraction: Bool = true, _ closure: @escaping (UITapGestureRecognizer) -> Void) -> UITapGestureRecognizer  {
-        let view = self.object!
-        if enableUserInteraction {
-            view.isUserInteractionEnabled = true
-        }
-        let recg = UITapGestureRecognizer.SCE.initialize(closure)
-        view.addGestureRecognizer(recg)
-        return recg
-    }
-}
-
 

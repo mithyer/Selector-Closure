@@ -92,5 +92,5 @@ let act = invoker.action // convert done, now pass invoker to target, act to act
 [swift32-badge]: https://img.shields.io/badge/Swift-3.2-orange.svg?style=flat
 [swift4-badge]: https://img.shields.io/badge/Swift-4.0-orange.svg?style=flat
 [swift-url]: https://swift.org
-[platform-badge]: https://img.shields.io/badge/platform-iOS%20%7C%20macOS%20%7C%20watchOS%20%7C%20tvOS%20%7C%20Linux-lightgrey.svg
+[platform-badge]: https://img.shields.io/badge/platform-iOS-lightgrey.svg
 [platform-url]: https://developer.apple.com/swift/

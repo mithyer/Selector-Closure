@@ -67,7 +67,7 @@ extension SCExtension where Self: AnyObject {
     }
     
     public var sce: SCECls<Self> {
-        return objc_getAssociatedObject(self, &sceKey) as? SCECls ?? {
+        return objc_getAssociatedObject(self, &sceKey) as? SCECls<Self> ?? {
             let sce = SCECls<Self>(self)
             objc_setAssociatedObject(self, &sceKey, sce, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             return sce

@@ -29,7 +29,6 @@ fileprivate typealias InvokersDicWrapper<T: UIControl> = DicWrapper<UIControlEve
 
 fileprivate var invokersDicWrapperKey: Void?
 
-extension UIControl: SCExtension {}
 
 extension SCECls where T: UIControl {
     
@@ -78,10 +77,10 @@ extension SCECls where T: UIControl {
     }
     
     public func remove(_ invoker: Invoker<T>) {
-        let control = self.object!
-        guard let dicWrapper: InvokersDicWrapper? = self.getAttach(forKey: &invokersDicWrapperKey),
+        guard let control = self.object,
+            let dicWrapper: InvokersDicWrapper<T> = self.getAttach(forKey: &invokersDicWrapperKey),
             let events = invoker.events,
-            let arrayWrapper = dicWrapper?.dic[events] else {
+            let arrayWrapper = dicWrapper.dic[events] else {
                 return
         }
         for (idx, ivk) in arrayWrapper.array.enumerated() {

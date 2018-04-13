@@ -7,11 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		717674551FECF87400A72450 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717674541FECF87400A72450 /* AppDelegate.swift */; };
-		717674571FECF87400A72450 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717674561FECF87400A72450 /* ViewController.swift */; };
 		7176745A1FECF87400A72450 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 717674581FECF87400A72450 /* Main.storyboard */; };
 		7176745C1FECF87400A72450 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7176745B1FECF87400A72450 /* Assets.xcassets */; };
 		7176745F1FECF87400A72450 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7176745D1FECF87400A72450 /* LaunchScreen.storyboard */; };
+		719207AF20806836004ED44C /* UIView+SCExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719207AE20806836004ED44C /* UIView+SCExtension.swift */; };
+		719207B22080B3F0004ED44C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719207B02080B3F0004ED44C /* ViewController.swift */; };
+		719207B32080B3F0004ED44C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 719207B12080B3F0004ED44C /* AppDelegate.swift */; };
 		71C5A6442074AFEF006C4A69 /* SCExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C5A6402074AFEF006C4A69 /* SCExtension.swift */; };
 		71C5A6452074AFEF006C4A69 /* UIBarButtonItem+SCExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C5A6412074AFEF006C4A69 /* UIBarButtonItem+SCExtension.swift */; };
 		71C5A6462074AFEF006C4A69 /* UIControl+SCExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C5A6422074AFEF006C4A69 /* UIControl+SCExtension.swift */; };
@@ -20,12 +21,13 @@
 
 /* Begin PBXFileReference section */
 		717674511FECF87400A72450 /* Selector-Closure.Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Selector-Closure.Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		717674541FECF87400A72450 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		717674561FECF87400A72450 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		717674591FECF87400A72450 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7176745B1FECF87400A72450 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7176745E1FECF87400A72450 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		717674601FECF87400A72450 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		719207AE20806836004ED44C /* UIView+SCExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+SCExtension.swift"; sourceTree = "<group>"; };
+		719207B02080B3F0004ED44C /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		719207B12080B3F0004ED44C /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		71C5A6402074AFEF006C4A69 /* SCExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SCExtension.swift; sourceTree = "<group>"; };
 		71C5A6412074AFEF006C4A69 /* UIBarButtonItem+SCExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+SCExtension.swift"; sourceTree = "<group>"; };
 		71C5A6422074AFEF006C4A69 /* UIControl+SCExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIControl+SCExtension.swift"; sourceTree = "<group>"; };
@@ -47,7 +49,7 @@
 			isa = PBXGroup;
 			children = (
 				71C5A63F2074AFEF006C4A69 /* Source */,
-				717674531FECF87400A72450 /* Support */,
+				717674531FECF87400A72450 /* Demo */,
 				717674521FECF87400A72450 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -60,17 +62,25 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		717674531FECF87400A72450 /* Support */ = {
+		717674531FECF87400A72450 /* Demo */ = {
 			isa = PBXGroup;
 			children = (
-				717674541FECF87400A72450 /* AppDelegate.swift */,
-				717674561FECF87400A72450 /* ViewController.swift */,
+				719207B4208440BC004ED44C /* Supporting */,
+				719207B12080B3F0004ED44C /* AppDelegate.swift */,
+				719207B02080B3F0004ED44C /* ViewController.swift */,
+			);
+			path = Demo;
+			sourceTree = "<group>";
+		};
+		719207B4208440BC004ED44C /* Supporting */ = {
+			isa = PBXGroup;
+			children = (
 				717674581FECF87400A72450 /* Main.storyboard */,
 				7176745B1FECF87400A72450 /* Assets.xcassets */,
 				7176745D1FECF87400A72450 /* LaunchScreen.storyboard */,
 				717674601FECF87400A72450 /* Info.plist */,
 			);
-			path = Support;
+			name = Supporting;
 			sourceTree = "<group>";
 		};
 		71C5A63F2074AFEF006C4A69 /* Source */ = {
@@ -80,6 +90,7 @@
 				71C5A6412074AFEF006C4A69 /* UIBarButtonItem+SCExtension.swift */,
 				71C5A6422074AFEF006C4A69 /* UIControl+SCExtension.swift */,
 				71C5A6432074AFEF006C4A69 /* UIGestureRecognizer+SCExtension.swift */,
+				719207AE20806836004ED44C /* UIView+SCExtension.swift */,
 			);
 			name = Source;
 			path = ../Source;
@@ -158,11 +169,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				719207B22080B3F0004ED44C /* ViewController.swift in Sources */,
 				71C5A6462074AFEF006C4A69 /* UIControl+SCExtension.swift in Sources */,
-				717674571FECF87400A72450 /* ViewController.swift in Sources */,
-				717674551FECF87400A72450 /* AppDelegate.swift in Sources */,
 				71C5A6472074AFEF006C4A69 /* UIGestureRecognizer+SCExtension.swift in Sources */,
 				71C5A6452074AFEF006C4A69 /* UIBarButtonItem+SCExtension.swift in Sources */,
+				719207B32080B3F0004ED44C /* AppDelegate.swift in Sources */,
+				719207AF20806836004ED44C /* UIView+SCExtension.swift in Sources */,
 				71C5A6442074AFEF006C4A69 /* SCExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -304,12 +316,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5TW2U68DN6;
-				INFOPLIST_FILE = Support/Info.plist;
+				INFOPLIST_FILE = Demo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ray.selector-closure";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -320,9 +334,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5TW2U68DN6;
-				INFOPLIST_FILE = Support/Info.plist;
+				INFOPLIST_FILE = Demo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ray.selector-closure";
 				PRODUCT_NAME = "$(TARGET_NAME)";
