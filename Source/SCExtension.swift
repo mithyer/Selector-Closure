@@ -60,7 +60,7 @@ public protocol SCExtension {
 
 fileprivate var sceKey: Void?
 
-extension SCExtension where Self: AnyObject {
+extension SCExtension where Self: AnyObject & SCExtension {
     
     public static var SCE: SCECls<Self>.Type {
         return SCECls<Self>.self
