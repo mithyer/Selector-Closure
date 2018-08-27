@@ -12,6 +12,7 @@ extension UIView: SCExtension {}
 
 extension SCECls where T: UIView {
     
+    @discardableResult
     public func whenTapped(_ enableUserInteraction: Bool = true, _ closure: @escaping (UITapGestureRecognizer) -> Void) -> UITapGestureRecognizer  {
         let view = self.object!
         if enableUserInteraction {

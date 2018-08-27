@@ -52,7 +52,7 @@ public class SCECls<T: AnyObject> {
 
 public protocol SCExtension {
     
-    associatedtype T
+    associatedtype T: AnyObject
 
     static var SCE: SCECls<T>.Type { get }
     var sce: SCECls<T> { get }

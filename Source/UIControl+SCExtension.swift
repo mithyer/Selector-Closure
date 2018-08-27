@@ -55,6 +55,7 @@ extension SCECls where T: UIControl {
         return invokers
     }
     
+    @discardableResult
     public func add(_ events: UIControlEvents? = nil, _ closure: @escaping (T) -> Void) -> Invoker<T> {
         let control = self.object!
         let events: UIControlEvents! = events ?? {
