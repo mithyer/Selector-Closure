@@ -13,7 +13,7 @@ public class Invoker<T: AnyObject> {
     
     weak var sender: T?
     
-    var events: UIControlEvents?
+    var events: UIControl.Event?
     
     var closure: (T) -> Void
     
@@ -60,7 +60,7 @@ public protocol SCExtension {
 
 fileprivate var sceKey: Void?
 
-extension SCExtension where Self: AnyObject & SCExtension {
+extension SCExtension where Self: AnyObject {
     
     public static var SCE: SCECls<Self>.Type {
         return SCECls<Self>.self

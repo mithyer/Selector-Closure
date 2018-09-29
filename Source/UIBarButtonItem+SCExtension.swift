@@ -22,19 +22,19 @@ extension UIBarButtonItem: SCExtension {
 
 extension SCECls where T: UIBarButtonItem {
     
-    static public func initialize(image: UIImage?, style: UIBarButtonItemStyle, _ closure: @escaping (T) -> Void) -> T {
+    static public func initialize(image: UIImage?, style: UIBarButtonItem.Style, _ closure: @escaping (T) -> Void) -> T {
         let btnItem = T.init(image: image, style: style, target: nil, action: nil)
         btnItem.initInvoker(closure)
         return btnItem
     }
     
-    static public func initialize(title: String?, style: UIBarButtonItemStyle, _ closure: @escaping (T) -> Void) -> T {
+    static public func initialize(title: String?, style: UIBarButtonItem.Style, _ closure: @escaping (T) -> Void) -> T {
         let btnItem = T.init(title: title, style: style, target: nil, action: nil)
         btnItem.initInvoker(closure)
         return btnItem
     }
     
-    static public func initialize(barButtonSystemItem systemItem: UIBarButtonSystemItem, _ closure: @escaping (T) -> Void) -> T {
+    static public func initialize(barButtonSystemItem systemItem: UIBarButtonItem.SystemItem, _ closure: @escaping (T) -> Void) -> T {
         let btnItem = T.init(barButtonSystemItem: systemItem, target: nil, action: nil)
         btnItem.initInvoker(closure)
         return btnItem

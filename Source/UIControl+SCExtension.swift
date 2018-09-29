@@ -8,7 +8,8 @@
 
 import UIKit
 
-extension UIControlEvents: Hashable {
+
+extension UIControl.Event: Hashable {
     
     public var hashValue: Int {
         return self.rawValue.hashValue
@@ -25,14 +26,14 @@ class ArrayWrapper<T> {
     var array = [T]()
 }
 
-fileprivate typealias InvokersDicWrapper<T: UIControl> = DicWrapper<UIControlEvents, ArrayWrapper<Invoker<T>>>
+fileprivate typealias InvokersDicWrapper<T: UIControl> = DicWrapper<UIControl.Event, ArrayWrapper<Invoker<T>>>
 
 fileprivate var invokersDicWrapperKey: Void?
 
 
 extension SCECls where T: UIControl {
     
-    func invokers(forEvents events: UIControlEvents, createIfNotExist: Bool = true) -> ArrayWrapper<Invoker<T>>? {
+    func invokers(forEvents events: UIControl.Event, createIfNotExist: Bool = true) -> ArrayWrapper<Invoker<T>>? {
         let dicWrapper: InvokersDicWrapper<T>? = self.getAttach(forKey: &invokersDicWrapperKey) ?? {
             if !createIfNotExist {
                 return nil
@@ -56,9 +57,9 @@ extension SCECls where T: UIControl {
     }
     
     @discardableResult
-    public func add(_ events: UIControlEvents? = nil, _ closure: @escaping (T) -> Void) -> Invoker<T> {
+    public func add(_ events: UIControl.Event? = nil, _ closure: @escaping (T) -> Void) -> Invoker<T> {
         let control = self.object!
-        let events: UIControlEvents! = events ?? {
+        let events: UIControl.Event! = events ?? {
             switch control {
                 case is UIButton: return .touchUpInside
                 case is UISwitch: fallthrough
@@ -93,7 +94,7 @@ extension SCECls where T: UIControl {
         }
     }
     
-    public func removeAll(for events: UIControlEvents) {
+    public func removeAll(for events: UIControl.Event) {
         let control = self.object!
         guard let wrapper = invokers(forEvents: events, createIfNotExist: false) else {
             return
@@ -104,7 +105,7 @@ extension SCECls where T: UIControl {
         wrapper.array.removeAll()
     }
     
-    public func didAdd(_ events: UIControlEvents) -> Bool {
+    public func didAdd(_ events: UIControl.Event) -> Bool {
         guard let wrapper = invokers(forEvents: events, createIfNotExist: false) else {
             return false
         }
