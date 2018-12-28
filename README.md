@@ -1,3 +1,5 @@
+Moved to https://github.com/mithyer/Ralyo/tree/master/src/Extension/Selector-Closure
+
 # Selector-Closure
 [![Swift32][swift32-badge]][swift-url]
 [![Swift4][swift4-badge]][swift-url]
